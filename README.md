@@ -1,3 +1,3 @@
 # projet-OCR
 
-by: Gayerie Adrien, Libsky Joel, Barafite Sohan, Privat Théo
+by: Gayerie Adrien, Libsky Joel, Barrafitte Sohan, Privat Théo
