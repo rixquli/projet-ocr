@@ -1,0 +1,8 @@
+# Training / dataset CSVs (too large for GitHub)
+data/*.csv
+
+# Build artifacts
+*.o
+*.exe
+main
+a.out
