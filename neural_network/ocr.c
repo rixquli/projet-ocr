@@ -273,10 +273,10 @@ int main(void) {
                                 "./data/test/tmnist_test.csv"};
 
     srand((unsigned)time(NULL));
-    FILE *file = fopen("weights.bin", "rb");
+    FILE *file = fopen("./data/weights.bin", "rb");
     if (file) {
         fclose(file);
-        init_ocr("weights.bin");
+        init_ocr("./data/weights.bin");
 
         test_dataset =
             load_dataset_from_batch_csv(test_files, sizeof(test_files) / sizeof(test_files[0]));
@@ -293,7 +293,7 @@ int main(void) {
             load_dataset_from_batch_csv(test_files, sizeof(test_files) / sizeof(test_files[0]));
         initialize_weights();
         train();
-        save_weights("weights.bin");
+        save_weights("./data/weights.bin");
         test();
         free_random_sample_index();
         free_dataset(training_dataset);
