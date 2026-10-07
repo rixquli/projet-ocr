@@ -1,8 +1,9 @@
 # Training / dataset CSVs (too large for GitHub)
-data/*.csv
+data/**/*.csv
 
 # Build artifacts
 *.o
 *.exe
 main
 a.out
+.vscode/
