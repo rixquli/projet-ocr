@@ -70,3 +70,22 @@ The letter classifier does not need SDL:
 It reads the trained weights from data/weights.bin and evaluates the CSV files
 listed in neural_network/ocr.c. Without data/weights.bin, it trains first and
 saves them.
+
+## Solver
+
+The word search solver does not need SDL either:
+
+    make solver
+    ./solver/solver solver/test hello
+
+The grid file contains one row of uppercase letters per line. All rows must
+have the same length; empty lines are ignored. The word is case insensitive
+and is searched in all eight directions, including backwards and diagonals.
+
+The program prints the first and last letter of the first match as
+(column, row)(column, row), starting at zero:
+
+    $ ./solver/solver solver/test hello
+    (9, 8)(5, 8)
+
+If the word is not in the grid, it prints Not found.
