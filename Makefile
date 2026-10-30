@@ -1,5 +1,5 @@
 CC = cc
-CFLAGS = -std=c11 -Wall -Wextra -Wpedantic -O2
+CFLAGS = -std=c11 -Wall -Wextra
 CPPFLAGS = -Iinclude $(shell pkg-config --cflags sdl2 SDL2_image)
 LDLIBS = $(shell pkg-config --libs sdl2 SDL2_image) -lm
 OBJECTS = src/main.o src/image.o src/segment.o
