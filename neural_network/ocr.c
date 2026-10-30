@@ -266,11 +266,8 @@ void init_ocr(char *filename) {
 }
 
 int main(void) {
-    const char *train_files[] = {"./data/train/chars74k_train.csv",
-                                 "./data/train/digital_letters_alt.csv",
-                                 "./data/train/fonts_train.csv", "./data/train/tmnist_train.csv"};
-    const char *test_files[] = {"./data/test/chars74k_test.csv", "./data/test/fonts_test.csv",
-                                "./data/test/tmnist_test.csv"};
+    const char *train_files[] = {"./data/train/example_train.csv"};
+    const char *test_files[] = {"./data/test/example_test.csv"};
 
     srand((unsigned)time(NULL));
     FILE *file = fopen("./data/weights.bin", "rb");
@@ -282,7 +279,6 @@ int main(void) {
             load_dataset_from_batch_csv(test_files, sizeof(test_files) / sizeof(test_files[0]));
         test();
         free_random_sample_index();
-        free_dataset(training_dataset);
         free_dataset(test_dataset);
     } else {
         printf("Training the neural network...\n");
