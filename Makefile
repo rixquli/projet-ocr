@@ -1,4 +1,4 @@
-CC = cc
+CC = gcc
 CFLAGS = -std=c11 -Wall -Wextra -Wpedantic -O2
 CPPFLAGS = -Iinclude $(shell pkg-config --cflags sdl2 SDL2_image)
 LDLIBS = $(shell pkg-config --libs sdl2 SDL2_image) -lm
@@ -12,7 +12,10 @@ ocr: $(OBJECTS)
 src/%.o: src/%.c include/image.h include/segment.h
 	$(CC) $(CPPFLAGS) $(CFLAGS) -c $< -o $@
 
-clean:
-	rm -f $(OBJECTS) ocr
+solver: solver/solver.c solver/main.c solver/solver.h
+	$(CC) $(CFLAGS) solver/main.c solver/solver.c -o solver/solver
 
-.PHONY: all clean
+clean:
+	rm -f $(OBJECTS) ocr solver/solver
+
+.PHONY: all clean solver
