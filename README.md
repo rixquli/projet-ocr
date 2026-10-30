@@ -59,3 +59,14 @@ proportions. Options can be combined, for example:
 
 Use a clean output directory when comparing runs: older letter files are not
 automatically removed. `make clean` removes the executable and object files.
+
+## Neural network
+
+The letter classifier does not need SDL:
+
+    make nn
+    ./ocr_nn
+
+It reads the trained weights from data/weights.bin and evaluates the CSV files
+listed in neural_network/ocr.c. Without data/weights.bin, it trains first and
+saves them.

@@ -1,0 +1,6 @@
+# Build artifacts
+*.o
+*.exe
+main
+a.out
+.vscode/
