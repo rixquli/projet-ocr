@@ -101,6 +101,7 @@ void printSolution(const Solution *sol)
 
     printf("(%d, %d)(%d, %d)\n", sol->y, sol->x, endY,endX);
 }
+
 int loadGrid(Grid *grid, const char *filename)
 {
     FILE *file = fopen(filename, "r");

@@ -20,7 +20,7 @@ typedef struct {
 
 char getC(const Grid *grid, int x, int y, Direction dir, int a);
 Solution *resolve(const Grid *grid, const char *mot);
-void printSolution(const Solution *sol, const char *mot);
+void printSolution(const Solution *sol);
 int loadGrid(Grid *grid, const char *filename);
 void freeGrid(Grid *grid);
 

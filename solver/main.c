@@ -16,7 +16,7 @@ int main(int argc, char *argv[])
     }
 
     Solution *sol = resolve(&grid, argv[2]);
-    printSolution(sol, argv[2]);
+    printSolution(sol);
 
     freeGrid(&grid);
     free(sol);
