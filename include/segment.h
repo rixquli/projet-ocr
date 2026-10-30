@@ -11,7 +11,16 @@ typedef struct
     int height;
 } Rect;
 
-int segment_grid(const Image *image, const char *directory);
+typedef struct
+{
+    int rows;
+    int columns;
+    Image ***letters;
+} LetterGrid;
+
+LetterGrid *segment_grid(const Image *image);
+int letter_grid_save(const LetterGrid *grid, const char *directory);
+void letter_grid_free(LetterGrid *grid);
 int segment_components(const Image *image, Rect area, const char *directory);
 
 #endif

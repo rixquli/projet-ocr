@@ -4,7 +4,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-// Group consecutive positions whose projection passes the threshold.
+// Finds the lines in the image by projecting the pixels onto the x or y axis
 static int find_lines(const Image *image, int vertical, int *lines, int max)
 {
     int length = vertical ? image->width : image->height;
@@ -49,6 +49,7 @@ static int find_lines(const Image *image, int vertical, int *lines, int max)
     return count;
 }
 
+// Saves a letter from the image to a file in PNG format -> returns 1 on success and 0 on failure
 static int write_letter(const Image *image, Rect box, const char *directory,
                         const char *name)
 {
@@ -63,7 +64,29 @@ static int write_letter(const Image *image, Rect box, const char *directory,
     return ok;
 }
 
-int segment_grid(const Image *image, const char *directory)
+// Frees the memory used by a LetterGrid
+void letter_grid_free(LetterGrid *grid)
+{
+    if (!grid)
+        return;
+    if (grid->letters)
+    {
+        for (int row = 0; row < grid->rows; row++)
+        {
+            if (grid->letters[row])
+            {
+                for (int col = 0; col < grid->columns; col++)
+                    image_free(grid->letters[row][col]);
+                free(grid->letters[row]);
+            }
+        }
+        free(grid->letters);
+    }
+    free(grid);
+}
+
+// Segments the image into a grid of letters -> returns NULL on failure
+LetterGrid *segment_grid(const Image *image)
 {
     int xs[512], ys[512];
     int nx = find_lines(image, 1, xs, 512);
@@ -71,31 +94,72 @@ int segment_grid(const Image *image, const char *directory)
     if (nx < 6 || ny < 6)
     {
         fprintf(stderr, "Grid lines not found. Try another threshold.\n");
-        return 0;
+        return NULL;
     }
-    printf("Grid candidate: %d rows, %d columns\n", ny-1, nx-1);
-    int failed = 0;
-    for (int row = 0; row < ny-1; row++)
-        for (int col = 0; col < nx-1; col++)
+
+    LetterGrid *grid = calloc(1, sizeof(*grid));
+    if (!grid)
+        return NULL;
+    grid->rows = ny - 1;
+    grid->columns = nx - 1;
+    grid->letters = calloc((size_t)grid->rows, sizeof(*grid->letters));
+    if (!grid->letters)
+    {
+        letter_grid_free(grid);
+        return NULL;
+    }
+    for (int row = 0; row < grid->rows; row++)
+    {
+        grid->letters[row] = calloc((size_t)grid->columns,
+                                    sizeof(*grid->letters[row]));
+        if (!grid->letters[row])
         {
-            int margin_x = (xs[col+1] - xs[col]) / 10;
-            int margin_y = (ys[row+1] - ys[row]) / 10;
+            letter_grid_free(grid);
+            return NULL;
+        }
+        for (int col = 0; col < grid->columns; col++)
+        {
+            int margin_x = (xs[col + 1] - xs[col]) / 10;
+            int margin_y = (ys[row + 1] - ys[row]) / 10;
             if (margin_x < 2) margin_x = 2;
             if (margin_y < 2) margin_y = 2;
             Rect box = {xs[col] + margin_x, ys[row] + margin_y,
-                        xs[col+1] - xs[col]-2 * margin_x,
-                        ys[row+1] - ys[row]-2 * margin_y};
-            char name[64];
-            snprintf(name, sizeof(name), "grid_%03d_%03d", row, col);
-            if (!write_letter(image, box, directory, name))
+                        xs[col + 1] - xs[col] - 2 * margin_x,
+                        ys[row + 1] - ys[row] - 2 * margin_y};
+            grid->letters[row][col] = image_letter(image, box.x, box.y,
+                                                   box.width, box.height);
+            if (!grid->letters[row][col])
             {
-                fprintf(stderr, "Could not extract %s\n", name);
-                failed++;
+                fprintf(stderr, "Could not extract cell (%d, %d).\n",
+                        row, col);
+                letter_grid_free(grid);
+                return NULL;
             }
         }
-    return failed == 0;
+    }
+    return grid;
 }
 
+// Saves the letters in the grid to files in PNG format -> returns 1 on success and 0 on failure
+int letter_grid_save(const LetterGrid *grid, const char *directory)
+{
+    for (int row = 0; row < grid->rows; row++)
+        for (int col = 0; col < grid->columns; col++)
+        {
+            char path[1024];
+            int length = snprintf(path, sizeof(path), "%s/grid_%03d_%03d.png",
+                                  directory, row, col);
+            if (length < 0 || (size_t)length >= sizeof(path) ||
+                !image_save(grid->letters[row][col], path))
+            {
+                fprintf(stderr, "Could not save cell (%d, %d).\n", row, col);
+                return 0;
+            }
+        }
+    return 1;
+}
+
+// Compares two rectangles for sorting by top-left corner
 static int compare_rects(const void *a, const void *b)
 {
     const Rect *left = a, *right = b;
@@ -104,6 +168,7 @@ static int compare_rects(const void *a, const void *b)
     return left->x < right->x ? -1 : left->x > right->x;
 }
 
+// Segments the image into connected components -> returns 1 on success and 0 on failure
 int segment_components(const Image *image, Rect area, const char *directory)
 {
     if (area.x < 0 || area.y < 0 || area.width <= 0 || area.height <= 0 ||

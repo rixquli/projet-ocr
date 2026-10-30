@@ -10,6 +10,7 @@
 
 #define PI 3.14159265358979323846 // If M_PI unavailable
 
+// Creates blank image with white pixel -> returns NULL on failure
 Image *image_create(int width, int height)
 {
     if (width <= 0 || height <= 0 || (size_t)width > SIZE_MAX / (size_t)height)
@@ -32,6 +33,7 @@ Image *image_create(int width, int height)
     return image;
 }
 
+// Frees image and pixels
 void image_free(Image *image)
 {
     if (image)
@@ -41,6 +43,8 @@ void image_free(Image *image)
     }
 }
 
+
+// Creates a copy of the image -> returns NULL on failure
 Image *image_clone(const Image *image)
 {
     Image *copy = image_create(image->width, image->height);
@@ -51,6 +55,7 @@ Image *image_clone(const Image *image)
     return copy;
 }
 
+// Loads an image from a file and converts it to grayscale -> returns NULL on failure
 Image *image_load(const char *path)
 {
     SDL_Surface *loaded = IMG_Load(path);
@@ -77,14 +82,14 @@ Image *image_load(const char *path)
         Uint8 *row = (Uint8 *)surface->pixels + y * surface->pitch;
         for (int x = 0; x < image->width; x++)
         {
-            Uint8 r, g, b, a;
+            Uint8 r, g, b;
             Uint32 pixel;
             memcpy(&pixel, row+x*4, sizeof(pixel));
-            SDL_GetRGBA(pixel, surface->format, &r, &g, &b, &a);
+            SDL_GetRGB(pixel, surface->format, &r, &g, &b);
             int gray = (300*r+585*g+115*b) / 1000;
             // Eyes are more sensitive to green than red or blue
             image->pixels[(size_t)y*image->width+x] =
-                (unsigned char)((gray*a + 255*(255-a))/255);
+                (unsigned char)gray;
         }
     }
     SDL_UnlockSurface(surface);
@@ -92,6 +97,7 @@ Image *image_load(const char *path)
     return image;
 }
 
+// Saves an image to a file in PNG format -> returns 1 on success and 0 on failure
 int image_save(const Image *image, const char *path)
 {
     SDL_Surface *surface = SDL_CreateRGBSurfaceWithFormat(
@@ -125,6 +131,7 @@ int image_save(const Image *image, const char *path)
     return result;
 }
 
+// Applies a threshold to the image -> (pixels <= threshold become black and others become white)
 void image_threshold(Image *image, int threshold)
 {
     size_t count = (size_t)image->width * image->height;
@@ -168,6 +175,7 @@ int image_otsu(const Image *image)
     return threshold;
 }
 
+// Rotates the image by a given angle in degrees -> returns NULL on failure
 Image *image_rotate(const Image *image, double degrees)
 {
     double angle = degrees * PI / 180.0;
@@ -204,7 +212,7 @@ Image *image_rotate(const Image *image, double degrees)
     return output;
 }
 
-// The score measures changes between adjacent projection rows.
+// Finds the best rotation angle for the image -> returns it in degrees
 static double projection_score(const Image *image, double degrees)
 {
     double radians = degrees * PI / 180.0;
@@ -256,6 +264,7 @@ double image_find_rotation(const Image *image, double max_angle,
     return best_angle;
 }
 
+// Extracts a rectangular area from the image and resizes it to 28x28 -> returns NULL on failure
 Image *image_letter(const Image *image, int x, int y, int width, int height)
 {
     if (x < 0 || y < 0 || width <= 0 || height <= 0 ||

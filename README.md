@@ -35,7 +35,10 @@ Extract a grid with visible borders:
 
     ./ocr data/input.png output --grid
 
-The files are named grid_ROW_COLUMN.png, starting at zero. The grid detector
+The extraction returns a LetterGrid in memory. Its letters[row][column]
+contains a 28 by 28 Image. The caller owns it and must call letter_grid_free.
+The command also saves files named grid_ROW_COLUMN.png, starting at zero.
+The grid detector
 is experimental: it assumes long, dark, straight borders and can mistake other
 lines for grid lines. Inspect the resulting images and counts.
 

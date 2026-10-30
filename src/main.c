@@ -141,10 +141,24 @@ int main(int argc, char **argv)
         if (!rotated || !save_in(rotated, argv[2], "rotated.png"))
             ok = 0;
     }
-    if (ok && grid && !segment_grid(rotated, argv[2])) ok = 0;
+    LetterGrid *letters = NULL;
+    if (ok && grid)
+    {
+        letters = segment_grid(rotated);
+        if (!letters)
+            ok = 0;
+        else
+        {
+            printf("Grid candidate: %d rows, %d columns\n",
+                   letters->rows, letters->columns);
+            if (!letter_grid_save(letters, argv[2]))
+                ok = 0;
+        }
+    }
     if (ok && components && !segment_components(rotated, area, argv[2]))
         ok = 0;
     
+    letter_grid_free(letters);
     image_free(rotated);
     image_free(binary);
     IMG_Quit();
