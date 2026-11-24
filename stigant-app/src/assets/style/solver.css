@@ -1,0 +1,179 @@
+.stigant .h1 {
+  font-family: "Inter Display", "Inter", sans-serif;
+  font-size: 45.9px;
+  font-weight: 500;
+}
+
+.stigant .lead {
+  font-size: 23px;
+  color: @text2;
+}
+
+.stigant .upload-card {
+  padding: 10.8px;
+  border: 1px solid @line;
+  border-radius: 32.4px;
+}
+
+.stigant .drop {
+  border-radius: 24.3px;
+  border: 1px dashed @line2;
+  background-image: repeating-linear-gradient(-45deg,
+      #ffffff 0px, #ffffff 27px, @soft 27px, @soft 54px);
+  transition: border-color 250ms ease, background-color 250ms ease;
+}
+
+.stigant .drop.over {
+  border: 1px solid @text;
+  background-image: none;
+  background-color: @soft;
+}
+
+.stigant .drop-ico {
+  min-width: 64.8px;
+  min-height: 64.8px;
+  border-radius: 18.9px;
+  background-color: #ffffff;
+  border: 1px solid @line2;
+  transition: background-color 300ms ease, border-color 300ms ease;
+}
+
+.stigant .drop.over .drop-ico {
+  background-color: @dark;
+  border-color: @dark;
+}
+
+.stigant .drop-title {
+  font-weight: 500;
+  font-size: 21.6px;
+}
+
+.stigant .drop-sub {
+  font-size: 18.2px;
+  color: @muted;
+}
+
+.stigant .upload-foot {
+  padding: 16.2px 13.5px 5.4px;
+  font-size: 18.2px;
+  color: @muted;
+}
+
+.stigant .stage {
+  border-radius: 27px;
+  background-color: @soft;
+  border: 1px solid transparent;
+  transition: background-color 600ms ease, border-color 600ms ease;
+}
+
+.stigant .stage.digitize {
+  background-color: #ffffff;
+  border-color: @line;
+}
+
+.stigant .abar {
+  padding: 9.5px;
+  background-color: #ffffff;
+  border: 1px solid @line2;
+  border-radius: 999px;
+  animation: fade-in 600ms ease-out;
+}
+
+.stigant .orb {
+  min-width: 59.4px;
+  min-height: 59.4px;
+}
+
+.stigant .orb spinner {
+  min-width: 29.7px;
+  min-height: 29.7px;
+  color: @text;
+}
+
+.stigant .ok-dot {
+  min-width: 35.1px;
+  min-height: 35.1px;
+  border-radius: 999px;
+  background-color: @dark;
+  animation: fade-in 400ms ease-out;
+}
+
+.stigant .ab-txt {
+  padding: 0 10.8px 0 5.4px;
+}
+
+.stigant .ab-title {
+  font-weight: 500;
+  font-size: 20.2px;
+}
+
+.stigant .ab-sub {
+  font-size: 16.9px;
+  color: @muted;
+}
+
+.stigant .ab-sub.mono {
+  color: @text2;
+}
+
+@keyframes pulse {
+  0% {
+    color: @text;
+  }
+
+  50% {
+    color: @faint;
+  }
+
+  100% {
+    color: @text;
+  }
+}
+
+.stigant .ab-title.running {
+  animation: pulse 1600ms ease-in-out infinite;
+}
+
+.stigant separator.ab-sep {
+  min-width: 1px;
+  min-height: 35.1px;
+  margin: 0 5.4px;
+  background-color: @line;
+}
+
+.stigant .count {
+  min-height: 59.4px;
+  min-width: 37.8px;
+  padding: 0 18.9px;
+  border-radius: 999px;
+  background-color: @soft;
+  font-family: monospace;
+  font-size: 17.6px;
+  color: @text2;
+}
+
+.stigant scale.dial trough {
+  min-height: 5.4px;
+  border: none;
+  border-radius: 999px;
+  background-color: @active;
+  background-image: none;
+}
+
+.stigant scale.dial highlight {
+  border: none;
+  border-radius: 999px;
+  background-color: @accent;
+  background-image: none;
+}
+
+.stigant scale.dial slider {
+  min-width: 18.9px;
+  min-height: 18.9px;
+  margin: -8.1px;
+  border: none;
+  border-radius: 999px;
+  background-color: @text;
+  background-image: none;
+  box-shadow: none;
+}

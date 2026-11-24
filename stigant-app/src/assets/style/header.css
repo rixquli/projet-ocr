@@ -1,0 +1,80 @@
+.stigant headerbar,
+.stigant headerbar:backdrop {
+  min-height: 81px;
+  padding: 0 21.6px 0 32.4px;
+  background-color: @bg;
+  background-image: none;
+  border: none;
+  box-shadow: none;
+}
+
+.stigant headerbar label:backdrop {
+  color: @text;
+}
+
+.stigant headerbar button {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+.stigant headerbar button.titlebutton {
+  min-width: 45.9px;
+  min-height: 45.9px;
+  padding: 0;
+  color: @icon;
+}
+
+.stigant .brand label {
+  font-family: "Inter Display", "Inter", sans-serif;
+  font-weight: 500;
+  font-size: 20.9px;
+}
+
+.stigant .seg.top-seg button {
+  min-height: 45.9px;
+  padding: 0 21.6px;
+  font-size: 20.2px;
+}
+
+.stigant .seg.top-seg button image {
+  opacity: 0.55;
+  transition: opacity 200ms ease;
+}
+
+.stigant .seg.top-seg button:checked image {
+  opacity: 1;
+}
+
+.stigant .crumb {
+  padding: 5.4px 5.4px 5.4px 18.9px;
+  border: 1px solid @line;
+  border-radius: 999px;
+  background-color: #ffffff;
+  font-size: 19.6px;
+  animation: fade-in 400ms ease-out;
+}
+
+.stigant .crumb .muted label {
+  color: @muted;
+}
+
+.stigant .crumb .sep {
+  color: @ghost;
+}
+
+.stigant .crumb .file label {
+  font-weight: 500;
+}
+
+.stigant .crumb .meta {
+  font-family: monospace;
+  font-size: 16.9px;
+  color: @muted;
+}
+
+.stigant .crumb button.x {
+  min-width: 40.5px;
+  min-height: 40.5px;
+  padding: 0;
+  border-radius: 999px;
+}

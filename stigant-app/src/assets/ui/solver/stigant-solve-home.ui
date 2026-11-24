@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<interface>
+  <requires lib="gtk+" version="3.24"/>
+  <object class="GtkScrolledWindow" id="solve_home">
+    <property name="hscrollbar-policy">never</property>
+
+    <child>
+      <object class="GtkBox">
+        <property name="orientation">vertical</property>
+        <property name="halign">center</property>
+        <property name="width-request">853</property>
+        <property name="margin-top">108</property>
+        <property name="margin-bottom">108</property>
+
+        <child>
+          <object class="GtkBox">
+            <property name="spacing">19</property>
+            <property name="halign">center</property>
+            <child><object class="GtkImage"><property name="resource">/org/stigant/App/icons/stigant-scan-32.svg</property></object></child>
+            <child>
+              <object class="GtkLabel">
+                <property name="label">Résoudre un mot caché</property>
+                <style><class name="h1"/></style>
+              </object>
+            </child>
+          </object>
+        </child>
+
+        <child>
+          <object class="GtkLabel">
+            <property name="label">Importe une photo de ta grille. Stigant la redresse, la lit et entoure chaque mot pour toi.</property>
+            <property name="wrap">True</property>
+            <property name="justify">center</property>
+            <property name="max-width-chars">50</property>
+            <property name="margin-top">16</property>
+            <style><class name="lead"/></style>
+          </object>
+        </child>
+
+        <child>
+          <object class="GtkBox">
+            <property name="orientation">vertical</property>
+            <property name="margin-top">30</property>
+            <style><class name="upload-card"/></style>
+
+            <child>
+              <object class="GtkEventBox" id="drop_area">
+                <property name="visible-window">False</property>
+                <child>
+                  <object class="GtkBox" id="drop">
+                    <property name="orientation">vertical</property>
+                    <style><class name="drop"/></style>
+                    <child>
+                      <object class="GtkBox">
+                        <property name="orientation">vertical</property>
+                        <property name="halign">center</property>
+                        <property name="valign">center</property>
+                        <property name="vexpand">True</property>
+
+                        <child>
+                          <object class="GtkBox">
+                            <property name="halign">center</property>
+                            <style><class name="drop-ico"/></style>
+                            <child>
+                              <object class="GtkImage">
+                                <property name="resource">/org/stigant/App/icons/stigant-upload.svg</property>
+                                <property name="hexpand">True</property>
+                              </object>
+                            </child>
+                          </object>
+                        </child>
+                        <child>
+                          <object class="GtkLabel">
+                            <property name="label">Glisse ton image ici</property>
+                            <property name="margin-top">22</property>
+                            <style><class name="drop-title"/></style>
+                          </object>
+                        </child>
+                        <child>
+                          <object class="GtkLabel">
+                            <property name="label">PNG ou JPG · 10 Mo max</property>
+                            <property name="margin-top">8</property>
+                            <style><class name="drop-sub"/></style>
+                          </object>
+                        </child>
+                        <child>
+                          <object class="GtkButton">
+                            <property name="halign">center</property>
+                            <property name="margin-top">30</property>
+                            <style><class name="pill"/><class name="dark"/></style>
+                            <child>
+                              <object class="GtkBox">
+                                <property name="spacing">12</property>
+                                <child><object class="GtkImage"><property name="resource">/org/stigant/App/icons/stigant-upload-light.svg</property></object></child>
+                                <child><object class="GtkLabel"><property name="label">Importer une image</property></object></child>
+                              </object>
+                            </child>
+                          </object>
+                        </child>
+                      </object>
+                    </child>
+                  </object>
+                </child>
+              </object>
+            </child>
+
+            <child>
+              <object class="GtkBox">
+                <property name="spacing">11</property>
+                <property name="halign">center</property>
+                <style><class name="upload-foot"/></style>
+                <child><object class="GtkLabel"><property name="label">Pas de grille sous la main ?</property></object></child>
+                <child>
+                  <object class="GtkButton">
+                    <style><class name="pill"/><class name="light"/><class name="sm"/></style>
+                    <child>
+                      <object class="GtkBox">
+                        <property name="spacing">11</property>
+                        <child><object class="GtkImage"><property name="resource">/org/stigant/App/icons/stigant-sparkle.svg</property></object></child>
+                        <child><object class="GtkLabel"><property name="label">Essayer un exemple</property></object></child>
+                      </object>
+                    </child>
+                  </object>
+                </child>
+              </object>
+            </child>
+          </object>
+        </child>
+      </object>
+    </child>
+  </object>
+</interface>

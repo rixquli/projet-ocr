@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<gresources>
+  <gresource prefix="/org/stigant/App">
+    <file>ui/layout/stigant-window.ui</file>
+    <file>ui/layout/stigant-mode-switch.ui</file>
+    <file>ui/layout/stigant-crumb.ui</file>
+
+    <file>ui/solver/stigant-solve-home.ui</file>
+    <file>ui/solver/stigant-solve-work.ui</file>
+
+    <file>ui/generator/stigant-gen-home.ui</file>
+    <file>ui/generator/stigant-gen-result.ui</file>
+
+    <file>style/base.css</file>
+    <file>style/header.css</file>
+    <file>style/solver.css</file>
+    <file>style/generator.css</file>
+
+    <file>icons/stigant-logo-24.svg</file>
+    <file>icons/stigant-scan.svg</file>
+    <file>icons/stigant-scan-32.svg</file>
+    <file>icons/stigant-scan-muted.svg</file>
+    <file>icons/stigant-sparkle.svg</file>
+    <file>icons/stigant-sparkle-muted.svg</file>
+    <file>icons/stigant-sparkle-accent.svg</file>
+    <file>icons/stigant-upload.svg</file>
+    <file>icons/stigant-upload-light.svg</file>
+    <file>icons/stigant-grid-26.svg</file>
+    <file>icons/stigant-close.svg</file>
+    <file>icons/stigant-close-sm.svg</file>
+    <file>icons/stigant-dots.svg</file>
+    <file>icons/stigant-plus.svg</file>
+    <file>icons/stigant-play-light.svg</file>
+    <file>icons/stigant-check-light.svg</file>
+    <file>icons/stigant-alert.svg</file>
+    <file>icons/stigant-alert-faint.svg</file>
+    <file>icons/stigant-download.svg</file>
+    <file>icons/stigant-download-light.svg</file>
+    <file>icons/stigant-copy.svg</file>
+    <file>icons/stigant-shuffle.svg</file>
+    <file>icons/stigant-print.svg</file>
+    <file>icons/stigant-rotate-left.svg</file>
+    <file>icons/stigant-rotate-right.svg</file>
+    <file>icons/stigant-sliders.svg</file>
+  </gresource>
+</gresources>

@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<interface>
+  <requires lib="gtk+" version="3.24"/>
+  <object class="GtkBox" id="crumb">
+    <property name="spacing">14</property>
+    <property name="valign">center</property>
+    <style><class name="crumb"/></style>
+
+    <child>
+      <object class="GtkBox">
+        <property name="spacing">9</property>
+        <style><class name="muted"/></style>
+        <child><object class="GtkImage" id="section_icon"><property name="resource">/org/stigant/App/icons/stigant-scan-muted.svg</property></object></child>
+        <child><object class="GtkLabel" id="section_label"><property name="label">Résoudre</property></object></child>
+      </object>
+    </child>
+
+    <child>
+      <object class="GtkLabel"><property name="label">/</property><style><class name="sep"/></style></object>
+    </child>
+
+    <child>
+      <object class="GtkBox">
+        <property name="spacing">11</property>
+        <style><class name="file"/></style>
+        <child>
+          <object class="GtkImage" id="thumb">
+            <property name="no-show-all">True</property>
+            <style><class name="thumb"/></style>
+          </object>
+        </child>
+        <child>
+          <object class="GtkLabel" id="name_label">
+            <property name="label">grille.jpg</property>
+            <property name="ellipsize">end</property>
+            <property name="max-width-chars">28</property>
+          </object>
+        </child>
+      </object>
+    </child>
+
+    <child>
+      <object class="GtkLabel" id="meta_label">
+        <property name="no-show-all">True</property>
+        <style><class name="meta"/></style>
+      </object>
+    </child>
+
+    <child>
+      <object class="GtkButton">
+        <property name="tooltip-text">Plus</property>
+        <style><class name="x"/></style>
+        <child><object class="GtkImage"><property name="resource">/org/stigant/App/icons/stigant-dots.svg</property></object></child>
+      </object>
+    </child>
+
+    <child>
+      <object class="GtkButton">
+        <property name="tooltip-text">Fermer</property>
+        <style><class name="x"/></style>
+        <child><object class="GtkImage"><property name="resource">/org/stigant/App/icons/stigant-close.svg</property></object></child>
+      </object>
+    </child>
+  </object>
+</interface>

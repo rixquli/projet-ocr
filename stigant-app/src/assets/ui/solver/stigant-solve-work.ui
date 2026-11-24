@@ -1,0 +1,315 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<interface>
+  <requires lib="gtk+" version="3.24"/>
+  <object class="GtkOverlay" id="solve_work">
+
+    <child>
+      <object class="GtkBox" id="stage">
+        <property name="margin-start">32</property>
+        <property name="margin-end">32</property>
+        <property name="margin-top">5</property>
+        <property name="margin-bottom">27</property>
+        <style><class name="stage"/></style>
+        <child>
+          <object class="GtkStack" id="stage_stack">
+            <property name="hexpand">True</property>
+            <property name="vexpand">True</property>
+            <property name="transition-type">crossfade</property>
+            <property name="transition-duration">700</property>
+            <child>
+              <object class="GtkImage" id="photo">
+                <property name="margin">27</property>
+                <property name="margin-bottom">124</property>
+              </object>
+              <packing><property name="name">photo</property></packing>
+            </child>
+            <child>
+              <object class="GtkBox" id="board_slot">
+                <property name="halign">center</property>
+                <property name="valign">center</property>
+                <property name="margin-bottom">103</property>
+              </object>
+              <packing><property name="name">board</property></packing>
+            </child>
+          </object>
+        </child>
+      </object>
+    </child>
+
+    <child type="overlay">
+      <object class="GtkBox">
+        <property name="halign">center</property>
+        <property name="valign">end</property>
+        <property name="margin-bottom">59</property>
+        <style><class name="abar"/></style>
+        <child>
+          <object class="GtkStack" id="bar_stack">
+            <property name="hhomogeneous">False</property>
+            <property name="interpolate-size">True</property>
+            <property name="transition-type">crossfade</property>
+            <property name="transition-duration">300</property>
+
+            <child>
+              <object class="GtkBox">
+                <property name="spacing">11</property>
+                <child>
+                  <object class="GtkBox">
+                    <property name="valign">center</property>
+                    <style><class name="orb"/></style>
+                    <child><object class="GtkImage"><property name="resource">/org/stigant/App/icons/stigant-sparkle.svg</property><property name="hexpand">True</property></object></child>
+                  </object>
+                </child>
+                <child>
+                  <object class="GtkBox">
+                    <property name="orientation">vertical</property>
+                    <property name="valign">center</property>
+                    <property name="hexpand">True</property>
+                    <style><class name="ab-txt"/></style>
+                    <child><object class="GtkLabel"><property name="label">Prête à analyser</property><property name="xalign">0</property><style><class name="ab-title"/></style></object></child>
+                    <child><object class="GtkLabel"><property name="label">6 étapes · environ 5 secondes</property><property name="xalign">0</property><style><class name="ab-sub"/></style></object></child>
+                  </object>
+                </child>
+                <child>
+                  <object class="GtkButton">
+                    <style><class name="pill"/><class name="dark"/></style>
+                    <child>
+                      <object class="GtkBox">
+                        <property name="spacing">12</property>
+                        <child><object class="GtkImage"><property name="resource">/org/stigant/App/icons/stigant-play-light.svg</property></object></child>
+                        <child><object class="GtkLabel"><property name="label">Démarrer l'analyse</property></object></child>
+                      </object>
+                    </child>
+                  </object>
+                </child>
+              </object>
+              <packing><property name="name">idle</property></packing>
+            </child>
+
+            <child>
+              <object class="GtkBox">
+                <property name="spacing">11</property>
+                <child>
+                  <object class="GtkBox">
+                    <property name="valign">center</property>
+                    <style><class name="orb"/></style>
+                    <child><object class="GtkSpinner"><property name="active">True</property><property name="hexpand">True</property></object></child>
+                  </object>
+                </child>
+                <child>
+                  <object class="GtkBox">
+                    <property name="orientation">vertical</property>
+                    <property name="valign">center</property>
+                    <property name="hexpand">True</property>
+                    <property name="width-request">310</property>
+                    <style><class name="ab-txt"/></style>
+                    <child><object class="GtkLabel" id="run_label"><property name="label">Détection de l'orientation</property><property name="xalign">0</property><style><class name="ab-title"/><class name="running"/></style></object></child>
+                    <child><object class="GtkLabel" id="run_next"><property name="label">Ensuite : Redressement</property><property name="xalign">0</property><style><class name="ab-sub"/></style></object></child>
+                  </object>
+                </child>
+                <child>
+                  <object class="GtkLabel" id="run_count">
+                    <property name="label">&lt;b&gt;2&lt;/b&gt;/6</property>
+                    <property name="use-markup">True</property>
+                    <style><class name="count"/></style>
+                  </object>
+                </child>
+              </object>
+              <packing><property name="name">run</property></packing>
+            </child>
+
+            <child>
+              <object class="GtkBox">
+                <property name="spacing">11</property>
+                <child>
+                  <object class="GtkBox">
+                    <property name="valign">center</property>
+                    <style><class name="orb"/></style>
+                    <child>
+                      <object class="GtkBox">
+                        <property name="halign">center</property>
+                        <property name="valign">center</property>
+                        <property name="hexpand">True</property>
+                        <style><class name="ok-dot"/></style>
+                        <child><object class="GtkImage"><property name="resource">/org/stigant/App/icons/stigant-check-light.svg</property><property name="hexpand">True</property></object></child>
+                      </object>
+                    </child>
+                  </object>
+                </child>
+                <child>
+                  <object class="GtkBox">
+                    <property name="orientation">vertical</property>
+                    <property name="valign">center</property>
+                    <style><class name="ab-txt"/></style>
+                    <child><object class="GtkLabel"><property name="label">Image redressée</property><property name="xalign">0</property><style><class name="ab-title"/></style></object></child>
+                    <child>
+                      <object class="GtkBox">
+                        <property name="spacing">5</property>
+                        <child><object class="GtkLabel"><property name="label">angle</property><style><class name="ab-sub"/></style></object></child>
+                        <child><object class="GtkLabel" id="angle_label"><property name="label">0,0°</property><style><class name="ab-sub"/><class name="mono"/></style></object></child>
+                        <child><object class="GtkLabel"><property name="label">· étape 3/6</property><style><class name="ab-sub"/></style></object></child>
+                      </object>
+                    </child>
+                  </object>
+                </child>
+
+                <child>
+                  <object class="GtkRevealer" id="precise_revealer">
+                    <property name="transition-type">slide-right</property>
+                    <property name="transition-duration">450</property>
+                    <child>
+                      <object class="GtkBox">
+                        <property name="spacing">3</property>
+                        <child>
+                          <object class="GtkButton">
+                            <property name="tooltip-text">−90°</property>
+                            <style><class name="chip"/><class name="round"/></style>
+                            <child><object class="GtkImage"><property name="resource">/org/stigant/App/icons/stigant-rotate-left.svg</property></object></child>
+                          </object>
+                        </child>
+                        <child>
+                          <object class="GtkScale" id="dial">
+                            <property name="width-request">297</property>
+                            <property name="draw-value">False</property>
+                            <property name="valign">center</property>
+                            <property name="adjustment">dial_adjustment</property>
+                            <style><class name="dial"/></style>
+                          </object>
+                        </child>
+                        <child>
+                          <object class="GtkButton">
+                            <property name="tooltip-text">+90°</property>
+                            <style><class name="chip"/><class name="round"/></style>
+                            <child><object class="GtkImage"><property name="resource">/org/stigant/App/icons/stigant-rotate-right.svg</property></object></child>
+                          </object>
+                        </child>
+                      </object>
+                    </child>
+                  </object>
+                </child>
+
+                <child><object class="GtkSeparator"><property name="orientation">vertical</property><style><class name="ab-sep"/></style></object></child>
+
+                <child>
+                  <object class="GtkButton">
+                    <style><class name="chip"/><class name="auto"/></style>
+                    <child>
+                      <object class="GtkBox">
+                        <property name="spacing">9</property>
+                        <child><object class="GtkImage"><property name="resource">/org/stigant/App/icons/stigant-sparkle-accent.svg</property></object></child>
+                        <child><object class="GtkLabel"><property name="label">Auto</property></object></child>
+                      </object>
+                    </child>
+                  </object>
+                </child>
+                <child>
+                  <object class="GtkToggleButton" id="precise_btn">
+                    <style><class name="chip"/></style>
+                    <child>
+                      <object class="GtkBox">
+                        <property name="spacing">9</property>
+                        <child><object class="GtkImage"><property name="resource">/org/stigant/App/icons/stigant-sliders.svg</property></object></child>
+                        <child><object class="GtkLabel"><property name="label">Préciser</property></object></child>
+                      </object>
+                    </child>
+                  </object>
+                </child>
+                <child>
+                  <object class="GtkButton">
+                    <style><class name="pill"/><class name="dark"/></style>
+                    <child>
+                      <object class="GtkBox">
+                        <property name="spacing">12</property>
+                        <child><object class="GtkLabel"><property name="label">Continuer</property></object></child>
+                        <child><object class="GtkLabel"><property name="label">↵</property><style><class name="kbd"/></style></object></child>
+                      </object>
+                    </child>
+                  </object>
+                </child>
+              </object>
+              <packing><property name="name">rotate</property></packing>
+            </child>
+
+            <child>
+              <object class="GtkBox">
+                <property name="spacing">11</property>
+                <child>
+                  <object class="GtkBox">
+                    <property name="valign">center</property>
+                    <style><class name="orb"/></style>
+                    <child>
+                      <object class="GtkBox">
+                        <property name="halign">center</property>
+                        <property name="valign">center</property>
+                        <property name="hexpand">True</property>
+                        <style><class name="ok-dot"/></style>
+                        <child><object class="GtkImage"><property name="resource">/org/stigant/App/icons/stigant-check-light.svg</property><property name="hexpand">True</property></object></child>
+                      </object>
+                    </child>
+                  </object>
+                </child>
+                <child>
+                  <object class="GtkBox">
+                    <property name="orientation">vertical</property>
+                    <property name="valign">center</property>
+                    <property name="hexpand">True</property>
+                    <style><class name="ab-txt"/></style>
+                    <child><object class="GtkLabel" id="done_title"><property name="label">10 mots trouvés</property><property name="xalign">0</property><style><class name="ab-title"/></style></object></child>
+                    <child><object class="GtkLabel" id="done_sub"><property name="label">Analyse terminée en 4,8 s</property><property name="xalign">0</property><style><class name="ab-sub"/></style></object></child>
+                  </object>
+                </child>
+                <child><object class="GtkSeparator"><property name="orientation">vertical</property><style><class name="ab-sep"/></style></object></child>
+                <child>
+                  <object class="GtkBox">
+                    <property name="spacing">11</property>
+                    <style><class name="chip"/></style>
+                    <child>
+                      <object class="GtkSwitch" id="sol_switch">
+                        <property name="valign">center</property>
+                        <property name="active">True</property>
+                      </object>
+                    </child>
+                    <child><object class="GtkLabel"><property name="label">Solutions</property></object></child>
+                  </object>
+                </child>
+                <child>
+                  <object class="GtkButton">
+                    <property name="tooltip-text">Copier la liste</property>
+                    <style><class name="chip"/><class name="round"/></style>
+                    <child><object class="GtkImage"><property name="resource">/org/stigant/App/icons/stigant-copy.svg</property></object></child>
+                  </object>
+                </child>
+                <child>
+                  <object class="GtkButton">
+                    <property name="tooltip-text">Exporter</property>
+                    <style><class name="chip"/><class name="round"/></style>
+                    <child><object class="GtkImage"><property name="resource">/org/stigant/App/icons/stigant-download.svg</property></object></child>
+                  </object>
+                </child>
+                <child>
+                  <object class="GtkButton">
+                    <style><class name="pill"/><class name="dark"/></style>
+                    <child>
+                      <object class="GtkBox">
+                        <property name="spacing">12</property>
+                        <child><object class="GtkImage"><property name="resource">/org/stigant/App/icons/stigant-upload-light.svg</property></object></child>
+                        <child><object class="GtkLabel"><property name="label">Nouvelle image</property></object></child>
+                      </object>
+                    </child>
+                  </object>
+                </child>
+              </object>
+              <packing><property name="name">done</property></packing>
+            </child>
+          </object>
+        </child>
+      </object>
+    </child>
+  </object>
+
+  <object class="GtkAdjustment" id="dial_adjustment">
+    <property name="lower">-45</property>
+    <property name="upper">45</property>
+    <property name="step-increment">0.1</property>
+    <property name="page-increment">1</property>
+  </object>
+</interface>

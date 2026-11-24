@@ -1,0 +1,279 @@
+.stigant .gcard {
+  padding: 37.8px;
+  border: 1px solid @line;
+  border-radius: 35.1px;
+}
+
+.stigant .g-head {
+  padding-bottom: 29.7px;
+  border-bottom: 1px solid @line;
+}
+
+.stigant .h2 {
+  font-family: "Inter Display", "Inter", sans-serif;
+  font-size: 35.1px;
+  font-weight: 500;
+}
+
+.stigant .field-label {
+  font-weight: 500;
+  font-size: 20.2px;
+}
+
+.stigant .field-small {
+  font-size: 17.6px;
+  color: @muted;
+}
+
+.stigant .g-hint {
+  font-size: 16.9px;
+  color: @muted;
+}
+
+.stigant entry.input,
+.stigant .tagbox {
+  border-radius: 16.2px;
+  border: 1px solid @line;
+  background-color: @soft;
+  background-image: none;
+  box-shadow: none;
+  transition: background-color 200ms ease, border-color 200ms ease;
+}
+
+.stigant entry.input {
+  min-height: 56.7px;
+  padding: 0 18.9px;
+  font-size: 19.6px;
+  color: @text;
+}
+
+.stigant entry.input:focus {
+  background-color: #ffffff;
+  border-color: @ghost;
+}
+
+.stigant .tagbox {
+  padding: 8.1px;
+}
+
+.stigant .tagbox entry {
+  min-height: 43.2px;
+  padding: 0 8.1px;
+  border: none;
+  background-color: transparent;
+  background-image: none;
+  box-shadow: none;
+  font-size: 18.9px;
+}
+
+.stigant entry placeholder,
+.stigant entry:backdrop placeholder {
+  color: @faint;
+}
+
+.stigant .tag {
+  min-height: 40.5px;
+  padding: 0 5.4px 0 14.9px;
+  border-radius: 12.2px;
+  border: 1px solid @line2;
+  background-color: #ffffff;
+  font-size: 18.2px;
+  font-weight: 500;
+  animation: fade-in 250ms ease-out;
+}
+
+.stigant .tag button {
+  min-width: 27px;
+  min-height: 27px;
+  padding: 0;
+  border-radius: 8.1px;
+}
+
+.stigant .sugg button {
+  min-height: 40.5px;
+  padding: 0 14.9px;
+  border-radius: 12.2px;
+  border-color: @line;
+  font-size: 18.2px;
+  color: @muted;
+}
+
+.stigant .sugg button:hover {
+  background-color: @soft;
+  color: @text;
+}
+
+.stigant .err {
+  padding: 13.5px 16.2px;
+  border-radius: 16.2px;
+  background-color: @danger_soft;
+  color: @danger;
+  font-size: 18.2px;
+}
+
+.stigant .g-foot {
+  margin-top: 35.1px;
+  padding-top: 27px;
+  border-top: 1px solid @line;
+}
+
+.stigant .sum {
+  font-size: 18.2px;
+  color: @muted;
+}
+
+.stigant .paper {
+  padding: 37.8px;
+}
+
+.stigant .gen-side {
+  padding: 27px;
+}
+
+.stigant .side-title {
+  font-weight: 500;
+  font-size: 20.9px;
+}
+
+.stigant .side-desc {
+  font-size: 18.2px;
+  color: @muted;
+}
+
+.stigant .word-chip {
+  min-height: 40.5px;
+  padding: 0 14.9px;
+  border-radius: 12.2px;
+  background-color: @soft;
+  font-family: monospace;
+  font-size: 16.9px;
+  animation: fade-in 450ms ease-out;
+}
+
+.stigant .dot {
+  min-width: 8.1px;
+  min-height: 8.1px;
+  border-radius: 999px;
+}
+
+.stigant .stats {
+  border: 1px solid @line;
+  border-radius: 18.9px;
+}
+
+.stigant .stat {
+  padding: 16.2px 18.9px;
+}
+
+.stigant .stat.bordered {
+  border-left: 1px solid @line;
+}
+
+.stigant .stat-value {
+  font-family: monospace;
+  font-size: 24.3px;
+  font-weight: 500;
+}
+
+.stigant .stat-label {
+  font-size: 16.9px;
+  color: @muted;
+}
+
+.stigant .side-actions {
+  padding-top: 24.3px;
+  border-top: 1px solid @line;
+}
+
+.stigant .letter-grid {
+  animation: fade-in 600ms ease-out;
+}
+
+.stigant .letter-grid label {
+  min-width: 54px;
+  min-height: 54px;
+  border-radius: 999px;
+  font-family: monospace;
+  font-size: 24.3px;
+  font-weight: 500;
+  color: @text;
+  transition: background-color 400ms ease, color 400ms ease;
+}
+
+.stigant .letter-grid.dense label {
+  min-width: 43.2px;
+  min-height: 43.2px;
+  font-size: 20.2px;
+}
+
+.stigant .letter-grid.solved label {
+  color: @ghost;
+}
+
+.stigant .letter-grid.solved label.hit {
+  color: @text;
+}
+
+.stigant .dot.c0 {
+  background-color: #0ea5e9;
+}
+
+.stigant .dot.c1 {
+  background-color: #8b5cf6;
+}
+
+.stigant .dot.c2 {
+  background-color: #10b981;
+}
+
+.stigant .dot.c3 {
+  background-color: #f97316;
+}
+
+.stigant .dot.c4 {
+  background-color: #ec4899;
+}
+
+.stigant .dot.c5 {
+  background-color: #6366f1;
+}
+
+.stigant .dot.c6 {
+  background-color: #eab308;
+}
+
+.stigant .dot.c7 {
+  background-color: #ef4444;
+}
+
+.stigant .letter-grid.solved label.hit.c0 {
+  background-color: alpha(#0ea5e9, 0.18);
+}
+
+.stigant .letter-grid.solved label.hit.c1 {
+  background-color: alpha(#8b5cf6, 0.18);
+}
+
+.stigant .letter-grid.solved label.hit.c2 {
+  background-color: alpha(#10b981, 0.18);
+}
+
+.stigant .letter-grid.solved label.hit.c3 {
+  background-color: alpha(#f97316, 0.18);
+}
+
+.stigant .letter-grid.solved label.hit.c4 {
+  background-color: alpha(#ec4899, 0.18);
+}
+
+.stigant .letter-grid.solved label.hit.c5 {
+  background-color: alpha(#6366f1, 0.18);
+}
+
+.stigant .letter-grid.solved label.hit.c6 {
+  background-color: alpha(#eab308, 0.18);
+}
+
+.stigant .letter-grid.solved label.hit.c7 {
+  background-color: alpha(#ef4444, 0.18);
+}

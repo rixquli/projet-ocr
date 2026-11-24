@@ -1,0 +1,279 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<interface>
+  <object class="GtkScrolledWindow" id="gen_home">
+    <property name="hscrollbar-policy">never</property>
+
+    <child>
+      <object class="GtkBox">
+        <property name="orientation">vertical</property>
+        <property name="halign">center</property>
+        <property name="valign">start</property>
+        <property name="width-request">756</property>
+        <property name="margin-top">54</property>
+        <property name="margin-bottom">81</property>
+        <style><class name="gcard"/></style>
+
+        <child>
+          <object class="GtkBox">
+            <property name="spacing">16</property>
+            <style><class name="g-head"/></style>
+            <child><object class="GtkImage"><property name="resource">/org/stigant/App/icons/stigant-grid-26.svg</property></object></child>
+            <child><object class="GtkLabel"><property name="label">Générer un mot caché</property><style><class name="h2"/></style></object></child>
+          </object>
+        </child>
+
+        <child>
+          <object class="GtkLabel">
+            <property name="label">Niveau</property>
+            <property name="xalign">0</property>
+            <property name="margin-top">27</property>
+            <property name="margin-bottom">14</property>
+            <style><class name="field-label"/></style>
+          </object>
+        </child>
+
+        <child>
+          <object class="GtkBox">
+            <property name="spacing">3</property>
+            <property name="homogeneous">True</property>
+            <style><class name="seg"/><class name="wide"/></style>
+            <child>
+              <object class="GtkRadioButton" id="diff_easy">
+                <property name="label">Facile</property>
+                <property name="draw-indicator">False</property>
+                <property name="name">0</property>
+              </object>
+            </child>
+            <child>
+              <object class="GtkRadioButton" id="diff_medium">
+                <property name="label">Moyen</property>
+                <property name="draw-indicator">False</property>
+                <property name="group">diff_easy</property>
+                <property name="active">True</property>
+                <property name="name">1</property>
+              </object>
+            </child>
+            <child>
+              <object class="GtkRadioButton" id="diff_hard">
+                <property name="label">Difficile</property>
+                <property name="draw-indicator">False</property>
+                <property name="group">diff_easy</property>
+                <property name="name">2</property>
+              </object>
+            </child>
+          </object>
+        </child>
+
+        <child>
+          <object class="GtkLabel" id="diff_hint">
+            <property name="label">Horizontal, vertical et diagonales</property>
+            <property name="xalign">0</property>
+            <property name="margin-top">11</property>
+            <property name="margin-start">5</property>
+            <style><class name="g-hint"/></style>
+          </object>
+        </child>
+
+        <child>
+          <object class="GtkBox">
+            <property name="spacing">22</property>
+            <property name="margin-top">27</property>
+            <child>
+              <object class="GtkBox">
+                <property name="orientation">vertical</property>
+                <property name="hexpand">True</property>
+                <child>
+                  <object class="GtkLabel">
+                    <property name="label">Titre</property>
+                    <property name="use-markup">True</property>
+                    <property name="xalign">0</property>
+                    <property name="margin-bottom">14</property>
+                    <style><class name="field-label"/></style>
+                  </object>
+                </child>
+                <child>
+                  <object class="GtkEntry" id="title_entry">
+                    <property name="text">Les fruits d'été</property>
+                    <property name="placeholder-text">ex. Les animaux de la ferme</property>
+                    <style><class name="input"/></style>
+                  </object>
+                </child>
+              </object>
+            </child>
+            <child>
+              <object class="GtkBox">
+                <property name="orientation">vertical</property>
+                <child>
+                  <object class="GtkBox">
+                    <property name="spacing">8</property>
+                    <property name="margin-bottom">14</property>
+                    <child><object class="GtkLabel"><property name="label">Taille</property><style><class name="field-label"/></style></object></child>
+                    <child><object class="GtkImage"><property name="resource">/org/stigant/App/icons/stigant-alert-faint.svg</property></object></child>
+                  </object>
+                </child>
+                <child>
+                  <object class="GtkBox">
+                    <property name="spacing">3</property>
+                    <property name="homogeneous">True</property>
+                    <style><class name="seg"/><class name="wide"/></style>
+                    <child>
+                      <object class="GtkRadioButton" id="size_10">
+                        <property name="label">10×10</property>
+                        <property name="draw-indicator">False</property>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="GtkRadioButton" id="size_12">
+                        <property name="label">12×12</property>
+                        <property name="draw-indicator">False</property>
+                        <property name="group">size_10</property>
+                        <property name="active">True</property>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="GtkRadioButton" id="size_15">
+                        <property name="label">15×15</property>
+                        <property name="draw-indicator">False</property>
+                        <property name="group">size_10</property>
+                      </object>
+                    </child>
+                  </object>
+                </child>
+              </object>
+            </child>
+          </object>
+        </child>
+
+        <child>
+          <object class="GtkBox">
+            <property name="margin-top">27</property>
+            <property name="margin-bottom">14</property>
+            <child>
+              <object class="GtkLabel">
+                <property name="label">Mots&lt;span foreground="#e5484d"&gt;*&lt;/span&gt;</property>
+                <property name="use-markup">True</property>
+                <property name="xalign">0</property>
+                <property name="hexpand">True</property>
+                <style><class name="field-label"/></style>
+              </object>
+            </child>
+            <child><object class="GtkLabel" id="remain_label"><property name="label">20 restants</property><style><class name="field-small"/></style></object></child>
+          </object>
+        </child>
+
+        <child>
+          <object class="GtkBox">
+            <property name="orientation">vertical</property>
+            <property name="spacing">8</property>
+            <style><class name="tagbox"/></style>
+            <child>
+              <object class="GtkFlowBox" id="tags_box">
+                <property name="selection-mode">none</property>
+                <property name="max-children-per-line">30</property>
+                <property name="column-spacing">8</property>
+                <property name="row-spacing">8</property>
+              </object>
+            </child>
+            <child>
+              <object class="GtkEntry" id="word_entry">
+                <property name="placeholder-text">Ajouter des mots (ex. pomme, poire, kiwi…)</property>
+              </object>
+            </child>
+          </object>
+        </child>
+
+        <child>
+          <object class="GtkBox" id="sugg_box">
+            <property name="spacing">8</property>
+            <property name="margin-top">14</property>
+            <style><class name="sugg"/></style>
+            <child>
+              <object class="GtkButton">
+                <property name="name">animaux</property>
+                <child>
+                  <object class="GtkBox">
+                    <property name="spacing">8</property>
+                    <child><object class="GtkImage"><property name="resource">/org/stigant/App/icons/stigant-plus.svg</property></object></child>
+                    <child><object class="GtkLabel"><property name="label">Animaux</property></object></child>
+                  </object>
+                </child>
+              </object>
+            </child>
+            <child>
+              <object class="GtkButton">
+                <property name="name">pays</property>
+                <child>
+                  <object class="GtkBox">
+                    <property name="spacing">8</property>
+                    <child><object class="GtkImage"><property name="resource">/org/stigant/App/icons/stigant-plus.svg</property></object></child>
+                    <child><object class="GtkLabel"><property name="label">Pays</property></object></child>
+                  </object>
+                </child>
+              </object>
+            </child>
+            <child>
+              <object class="GtkButton">
+                <property name="name">sport</property>
+                <child>
+                  <object class="GtkBox">
+                    <property name="spacing">8</property>
+                    <child><object class="GtkImage"><property name="resource">/org/stigant/App/icons/stigant-plus.svg</property></object></child>
+                    <child><object class="GtkLabel"><property name="label">Sport</property></object></child>
+                  </object>
+                </child>
+              </object>
+            </child>
+            <child>
+              <object class="GtkButton">
+                <property name="name">espace</property>
+                <child>
+                  <object class="GtkBox">
+                    <property name="spacing">8</property>
+                    <child><object class="GtkImage"><property name="resource">/org/stigant/App/icons/stigant-plus.svg</property></object></child>
+                    <child><object class="GtkLabel"><property name="label">Espace</property></object></child>
+                  </object>
+                </child>
+              </object>
+            </child>
+          </object>
+        </child>
+
+        <child>
+          <object class="GtkRevealer" id="err_revealer">
+            <property name="transition-type">slide-down</property>
+            <property name="transition-duration">300</property>
+            <child>
+              <object class="GtkBox">
+                <property name="spacing">14</property>
+                <property name="margin-top">14</property>
+                <style><class name="err"/></style>
+                <child><object class="GtkImage"><property name="resource">/org/stigant/App/icons/stigant-alert.svg</property></object></child>
+                <child><object class="GtkLabel"><property name="label">Ajoute au moins 3 mots pour générer une grille</property></object></child>
+              </object>
+            </child>
+          </object>
+        </child>
+
+        <child>
+          <object class="GtkBox">
+            <property name="spacing">14</property>
+            <style><class name="g-foot"/></style>
+            <child>
+              <object class="GtkButton">
+                <property name="label">Annuler</property>
+                <style><class name="pill"/><class name="line"/></style>
+              </object>
+            </child>
+            <child>
+              <object class="GtkButton" id="gen_btn">
+                <property name="label">Générer</property>
+                <style><class name="pill"/><class name="dark"/></style>
+              </object>
+            </child>
+          </object>
+        </child>
+        
+      </object>
+    </child>
+  </object>
+</interface>

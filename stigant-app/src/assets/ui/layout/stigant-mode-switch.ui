@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<interface>
+  <requires lib="gtk+" version="3.24"/>
+  <object class="GtkBox" id="mode_switch">
+    <property name="spacing">3</property>
+    <property name="halign">center</property>
+    <property name="valign">center</property>
+    <style><class name="seg"/><class name="top-seg"/></style>
+
+    <child>
+      <object class="GtkRadioButton" id="solve_btn">
+        <property name="draw-indicator">False</property>
+        <property name="active">True</property>
+        <child>
+          <object class="GtkBox">
+            <property name="spacing">11</property>
+            <child>
+              <object class="GtkImage">
+                <property name="resource">/org/stigant/App/icons/stigant-scan.svg</property>
+              </object>
+            </child>
+            <child>
+              <object class="GtkLabel"><property name="label">Résoudre</property></object>
+            </child>
+          </object>
+        </child>
+      </object>
+    </child>
+
+    <child>
+      <object class="GtkRadioButton" id="gen_btn">
+        <property name="draw-indicator">False</property>
+        <property name="group">solve_btn</property>
+        <child>
+          <object class="GtkBox">
+            <property name="spacing">11</property>
+            <child>
+              <object class="GtkImage">
+                <property name="resource">/org/stigant/App/icons/stigant-sparkle.svg</property>
+              </object>
+            </child>
+            <child>
+              <object class="GtkLabel"><property name="label">Générer</property></object>
+            </child>
+          </object>
+        </child>
+      </object>
+    </child>
+  </object>
+</interface>
