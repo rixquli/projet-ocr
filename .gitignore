@@ -2,5 +2,6 @@
 *.o
 *.exe
 main
+!main/
 a.out
 .vscode/

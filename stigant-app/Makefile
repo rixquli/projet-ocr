@@ -20,20 +20,20 @@ SRC = src/main.c \
 HDR = $(shell find src -name '*.h')
 
 RES_XML  = src/assets/stigant.gresource.xml
-RES_C    = build/stigant-resources.c
+RES_C    = src/build/stigant-resources.c
 RES_DEPS = $(shell glib-compile-resources --sourcedir=src/assets --generate-dependencies $(RES_XML))
 
 stigant: $(SRC) $(HDR) $(RES_C)
 	$(CC) $(CFLAGS) $(SRC) $(RES_C) -o $@ $(LIBS)
 
 $(RES_C): $(RES_XML) $(RES_DEPS)
-	@mkdir -p build
+	@mkdir -p $(dir $@)
 	glib-compile-resources --sourcedir=src/assets --target=$@ --generate-source $<
 
 run: stigant
 	./stigant
 
 clean:
-	rm -rf stigant build
+	rm -rf stigant $(dir $(RES_C))
 
 .PHONY: run clean
