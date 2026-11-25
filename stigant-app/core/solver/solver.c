@@ -1,177 +1,177 @@
-#define _POSIX_C_SOURCE 200809L
 
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
 #include <ctype.h>
 #include <sys/types.h>
+#include <math.h>
+#include <limits.h>
 
 #include "solver.h"
 
-char getC(const Grid *grid, int x, int y,
-          Direction dir, int a)
+float *getC(const Grid *grid, int x, int y,
+            Direction dir, int a)
 {
     int nx = x;
     int ny = y;
 
-    switch (dir) {
-        case g:  ny -= a; break;
-        case d:  ny += a; break;
-        case b:  nx += a; break;
-        case h:  nx -= a; break;
-        case hg: nx -= a; ny -= a; break;
-        case hd: nx -= a; ny += a; break;
-        case bg: nx += a; ny -= a; break;
-        case bd: nx += a; ny += a; break;
-        default: return '\0';
+    switch (dir)
+    {
+    case g:
+        ny -= a;
+        break;
+    case d:
+        ny += a;
+        break;
+    case b:
+        nx += a;
+        break;
+    case h:
+        nx -= a;
+        break;
+    case hg:
+        nx -= a;
+        ny -= a;
+        break;
+    case hd:
+        nx -= a;
+        ny += a;
+        break;
+    case bg:
+        nx += a;
+        ny -= a;
+        break;
+    case bd:
+        nx += a;
+        ny += a;
+        break;
+    default:
+        return '\0';
     }
 
     if (nx < 0 || nx >= grid->height ||
         ny < 0 || ny >= grid->width)
         return '\0';
 
-    return grid->grille[nx][ny];
+    return grid->grille[nx * grid->width + ny];
 }
 
-
-Solution *resolve(const Grid *grid, const char *mot)
+int can_fit(const Grid *grid, int x, int y, Direction dir, int word_size)
 {
-    int ml = strlen(mot);
+    return getC(grid, x, y, dir, word_size - 1) != NULL;
+}
 
-    if (ml == 0)
+// From a word and the grid return the max score which is the corresponding word
+ScoreGrid *get_score_grid_for(float (*word)[OUTPUT_DIM], int word_size, Grid *grid)
+{
+    ScoreGrid *res = malloc(sizeof(ScoreGrid));
+    res->height = grid->height;
+res->width  = grid->width;
+res->score  = malloc((size_t)grid->height * grid->width * sizeof(*res->score));
+
+    if (word_size == 0)
         return NULL;
-
-    for (int x = 0; x < grid->height; x++) {
-        for (int y = 0; y < grid->width; y++) {
-            for (int dir = 0; dir < 8; dir++) {
+    for (int x = 0; x < grid->height; x++)
+    {
+        for (int y = 0; y < grid->width; y++)
+        {
+            for (int dir = 0; dir < 8; dir++)
+            {
                 int pic = 0;
-                char c;
 
-                while (pic < ml &&
-                       (c = getC(grid, x, y,
-                                 (Direction)dir, pic)) != '\0' &&
-                       c == toupper((unsigned char)mot[pic])) {
+                float total = 0;
+                if(!can_fit(grid,x,y,dir,word_size))
+                {
+                    res->score[x * grid->width + y][dir] = -INFINITY;
+                    continue;
+                }
+                while (pic < word_size)
+                {
+                    float sum = 0;
+
+                    float *l = getC(grid, x, y, dir, pic);
+                    if(!l) 
+                        break;
+                    for (size_t i = 0; i < 26; i++)
+                    {
+                        sum += l[i] * word[pic][i];
+                    }
+                    total += logf(sum + 0.00001); // to avoid log(0)
                     pic++;
                 }
+                res->score[x * grid->width + y][dir] = total;
+            }
+        }
+    }
 
-                if (pic == ml) {
-                    Solution *sol = malloc(sizeof(*sol));
+    return res;
+}
 
-                    if (sol == NULL)
-                        return NULL;
+Solution *get_solution(Grid *grid, float (*word)[OUTPUT_DIM], int word_size)
+{
+    ScoreGrid *score_grid = get_score_grid_for(word, word_size, grid);
 
-                    sol->x = x;
-                    sol->y = y;
-                    sol->l = ml;
-                    sol->direction = (Direction)dir;
+    Solution *solution = malloc(sizeof(Solution));
 
-                    return sol;
+    float best_score = -INFINITY ;
+
+    for (int x = 0; x < grid->height; x++)
+    {
+        for (int y = 0; y < grid->width; y++)
+        {
+            for (int dir = 0; dir < 8; dir++)
+            {
+                if(!can_fit(grid,x,y,dir,word_size))
+                {
+                    continue;
+                }
+                float total = score_grid->score[x * grid->width + y][dir];
+                if (total > best_score)
+                {
+                    best_score = total;
+                    solution->x = x;
+                    solution->y = y;
+                    solution->direction = dir;
                 }
             }
         }
     }
 
-    return NULL;
-}
-
-void printSolution(const Solution *sol)
-{
-    if (sol == NULL) {
-        printf("Not found\n");
-        return;
+    if(best_score/word_size < -1.5)
+    {
+        printf("Warning: The matching score is low\n");
     }
 
-    int endX = sol->x;
-    int endY = sol->y;
+    solution->word = calloc(word_size + 1, sizeof(char));
+    for (size_t i = 0; i < word_size; i++)
+    {
+        float maxscore = -INFINITY ;
+        int letter=0;
+        float *proba_letter_grid = getC(grid, solution->x, solution->y, solution->direction, i);
+        for (int j = 0; j < 26; j++)
+        {
+            float score = proba_letter_grid[j] * word[i][j];
+            if(score > maxscore)
+            {
+                maxscore = score;
+                letter = j;
+            }
+        }
 
-    switch (sol->direction) {
-        case g:  endY -= sol->l - 1; break;
-        case d:  endY += sol->l - 1; break;
-        case b:  endX += sol->l - 1; break;
-        case h:  endX -= sol->l - 1; break;
-        case hg: endX -= sol->l - 1;
-                 endY -= sol->l - 1; break;
-        case hd: endX -= sol->l - 1;
-                 endY += sol->l - 1; break;
-        case bg: endX += sol->l - 1;
-                 endY -= sol->l - 1; break;
-        case bd: endX += sol->l - 1;
-                 endY += sol->l - 1; break;
+        solution->word[i] = (char)letter + 'A';
     }
+    solution->word[word_size] = '\0';
 
-    printf("(%d, %d)(%d, %d)\n", sol->y, sol->x, endY,endX);
-}
+    free(score_grid->score);
+    free(score_grid);
 
-int loadGrid(Grid *grid, const char *filename)
-{
-    FILE *file = fopen(filename, "r");
-
-    if (file == NULL) {
-        printf("Erreur : impossible d'ouvrir %s\n", filename);
-        return 0;
-    }
-
-    char *line = NULL;
-    size_t capacity = 0;
-    ssize_t length;
-
-    grid->height = 0;
-    grid->width = 0;
-    grid->grille = NULL;
-
-    while ((length = getline(&line, &capacity, file)) != -1) {
-        if (length > 0 && line[length - 1] == '\n'){
-            line[--length] = '\0';
-        }
-
-        if (length > 0 && line[length - 1] == '\r'){
-            line[--length] = '\0';
-        }
-
-        if (length == 0){
-            continue;
-        }
-
-        if (grid->height == 0) {
-            grid->width = length;
-        } else if ((int)length != grid->width) {
-            printf("Erreur : grille non rectangulaire.\n");
-            free(line);
-            fclose(file);
-            return 0;
-        }
-
-        char **newGrid = realloc(
-            grid->grille,
-            (grid->height + 1) * sizeof(char *)
-        );
-
-        if (newGrid == NULL) {
-            free(line);
-            fclose(file);
-            return 0;
-        }
-
-        grid->grille = newGrid;
-        grid->grille[grid->height] = malloc(length + 1);
-
-        if (grid->grille[grid->height] == NULL) {
-            free(line);
-            fclose(file);
-            return 0;
-        }
-        memcpy(grid->grille[grid->height], line, length + 1);
-        grid->height++;
-    }
-
-    free(line);
-    fclose(file);
-    return grid->height > 0;
+    return solution;
 }
 
 void freeGrid(Grid *grid)
 {
-    for (int i = 0; i < grid->height; i++){
+    for (int i = 0; i < grid->height; i++)
+    {
         free(grid->grille[i]);
     }
     free(grid->grille);

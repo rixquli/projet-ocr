@@ -5,3 +5,4 @@ main
 !main/
 a.out
 .vscode/
+data/train/*.csv
