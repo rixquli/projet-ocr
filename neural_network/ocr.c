@@ -5,6 +5,7 @@
 #include <string.h>
 #include "csv.h"
 #include "config.h"
+#include "ocr.h"
 
 float input[INPUT_DIM] = {0.0f};
 float hidden[HIDDEN_DIM] = {0.0f};
@@ -21,6 +22,8 @@ dataset *test_dataset;
 
 char alphabet[27] = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 
+float temperature = 1.0f;
+
 size_t *random_sample_index;
 
 void shuffle(size_t *array, size_t n) {
@@ -35,6 +38,7 @@ void shuffle(size_t *array, size_t n) {
 }
 
 void setup_random_sample_index(void) {
+    free(random_sample_index);
     random_sample_index = calloc(training_dataset->rows, sizeof(*random_sample_index));
     for (size_t i = 0; i < training_dataset->rows; i++)
         random_sample_index[i] = i;
@@ -103,13 +107,26 @@ void calcul(float sample[INPUT_DIM]) {
     for (int i = 0; i < HIDDEN_DIM; i++)
         hidden[i] = sigmoid(sums[i]);
 
+    // Softmax avec temperature : output[i] = exp(z[i] / T) / somme(exp(z[k] / T))
+    float z[OUTPUT_DIM];
+    float z_max = -INFINITY;
     for (int i = 0; i < OUTPUT_DIM; i++) {
         float sum = biases_output[i];
         for (int j = 0; j < HIDDEN_DIM; j++) {
             sum += hidden[j] * weights_hidden_output[j][i];
         }
-        output[i] = sigmoid(sum);
+        z[i] = sum / temperature;
+        if (z[i] > z_max)
+            z_max = z[i];
     }
+
+    float total = 0.0f;
+    for (int i = 0; i < OUTPUT_DIM; i++) {
+        output[i] = expf(z[i] - z_max); // - z_max : evite que expf deborde
+        total += output[i];
+    }
+    for (int i = 0; i < OUTPUT_DIM; i++)
+        output[i] /= total;
 }
 
 char max_letter(float values[OUTPUT_DIM]) {
@@ -206,8 +223,9 @@ void train(void) {
 
 void test(void) {
     int correct = 0;
+    temperature = TEMPERATURE;
 
-    printf("\n=== TEST ===\n");
+    printf("\n=== TEST (temperature %.1f) ===\n", temperature);
 
     for (size_t d = 0; d < test_dataset->rows; d++) {
         float expected[OUTPUT_DIM];
@@ -226,8 +244,17 @@ void test(void) {
         }
 
         printf("%c (attendu %c)%s\n", pred, expected_letter, pred == expected_letter ? "" : "  X");
+
+        // softmax : les sorties somment deja a 1
+        for (int i = 0; i < OUTPUT_DIM; i++) {
+            printf("  %c: %5.1f%%", alphabet[i], 100.0f * output[i]);
+            if ((i + 1) % 6 == 0)
+                printf("\n");
+        }
+        printf("\n");
     }
 
+    temperature = 1.0f;
     float accuracy = 100.0f * (float)correct / (float)test_dataset->rows;
 
     printf("\n=== RESULTATS ===\n");
@@ -265,9 +292,31 @@ void init_ocr(char *filename) {
     fclose(file);
 }
 
+void infer_img(const float input_arg[INPUT_DIM], float probas[OUTPUT_DIM])
+{
+    temperature = TEMPERATURE;
+    calcul((float *)input_arg);
+    temperature = 1.0f;
+
+    for (int i = 0; i < OUTPUT_DIM; i++)
+        probas[i] = output[i];
+} 
+
+// OCR_NO_MAIN : permet d'utiliser ocr.c comme bibliotheque (ex. test OCR + solveur)
+#ifndef OCR_NO_MAIN
 int main(void) {
-    const char *train_files[] = {"./data/train/example_train.csv"};
-    const char *test_files[] = {"./data/test/example_test.csv"};
+    const char *train_files[] = {
+        "./data/train/example_train.csv",
+        "./data/chars74k_train.csv",
+        "./data/digital_letters.csv",
+        "./data/digital_letters_alt.csv",
+        "./data/fonts_train.csv",
+        "./data/tmnist_train.csv",
+        "./data/fonts_test.csv",
+        "./data/chars74k_test.csv",
+        "./data/tmnist_test.csv",
+    };
+    const char *test_files[] = {"./data/test_26_lettres.csv"};
 
     srand((unsigned)time(NULL));
     FILE *file = fopen("./data/weights.bin", "rb");
@@ -298,3 +347,5 @@ int main(void) {
 
     return 0;
 }
+
+#endif

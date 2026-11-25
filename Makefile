@@ -5,7 +5,7 @@ LDLIBS = $(shell pkg-config --libs sdl2 SDL2_image) -lm
 OBJECTS = src/main.o src/image.o src/segment.o
 
 # Neural network: no SDL, and no -std=c11 because csv.c uses POSIX getline
-NN_CFLAGS = -Wall -Wextra -fsanitize=address -O2 -Iinclude
+NN_CFLAGS = -Wall -Wextra -fsanitize=address -O3 -Iinclude
 NN_LDLIBS = -lm
 
 all: ocr
